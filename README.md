@@ -1,2 +1,2 @@
 # bridge
-This repository holds UI elements of the Shardis Network Bridge
+This repository holds UI elements of the Sardis Network Bridge

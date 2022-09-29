@@ -4,7 +4,6 @@ pragma solidity 0.8.17;
 //SPDX-License-Identifier: MIT
 
 
-
 interface ERC20Essential 
 {
 
@@ -12,6 +11,13 @@ interface ERC20Essential
     function transfer(address _to, uint256 _amount) external returns (bool);
     function transferFrom(address _from, address _to, uint256 _amount) external returns (bool);
 
+}
+
+
+//USDT contract in Ethereum does not follow ERC20 standard so it needs different interface
+interface usdtContract
+{
+    function transferFrom(address _from, address _to, uint256 _amount) external;
 }
 
 
@@ -89,12 +95,12 @@ contract Bridge is owned {
 
     
     receive () external payable {
-        //nothing will happen on incoming fund
+        //nothing happens for incoming fund
     }
     
-    function coinIn(address outputCurrency) public payable returns(bool){
+    function coinIn(address outputCurrency) external payable returns(bool){
         orderID++;
-        payable(owner).transfer(msg.value);         //fund will go to the owner
+        payable(owner).transfer(msg.value);     //send fund to owner
         emit CoinIn(orderID, msg.sender, msg.value, outputCurrency);
         return true;
     }
@@ -110,22 +116,24 @@ contract Bridge is owned {
     
     function tokenIn(address tokenAddress, uint256 tokenAmount, uint256 chainID) external returns(bool){
         orderID++;
-        ERC20Essential(tokenAddress).transferFrom(msg.sender, owner, tokenAmount);  //fund will go to the owner
+        //fund will go to the owner
+        if(tokenAddress == address(0xdAC17F958D2ee523a2206206994597C13D831ec7)){
+            //There should be different interface for the USDT Ethereum contract
+            usdtContract(tokenAddress).transferFrom(msg.sender, owner, tokenAmount);
+        }else{
+            ERC20Essential(tokenAddress).transferFrom(msg.sender, owner, tokenAmount);
+        }
         emit TokenIn(orderID, tokenAddress, msg.sender, tokenAmount, chainID);
         return true;
     }
     
     
     function tokenOut(address tokenAddress, address user, uint256 tokenAmount, uint256 _orderID, uint256 chainID) external onlySigner returns(bool){
-        
-        
+       
             ERC20Essential(tokenAddress).transfer(user, tokenAmount);
             emit TokenOut(_orderID, tokenAddress, user, tokenAmount, chainID);
         
         return true;
     }
-
-   
-
 
 }

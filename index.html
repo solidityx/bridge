@@ -107,7 +107,7 @@
 										  <span id="tsrdsTokencheck"  style="display: none;" class="badge badge-success badge-pill tokenCheck"><i class="fa fa-check" aria-hidden="true"></i></span>
 										</li> -->
 										<li id="assetFromSRDS" class="list-group-item d-flex justify-content-between align-items-center" data-name="srds">
-											<img src="assets/img/srdx.png" class="mr-3" alt="ETH">
+											<img src="assets/img/srdx.png" style="margin-left:-2px;" class="mr-3" alt="SRDS">
 											<div class="media-body">
 											  <h5 class="mt-0 mb-1">SRDS</h5>
 											  <span>Sardis Network</span>
@@ -115,12 +115,36 @@
 										  <span id="srdsTokencheck"  style="display: none;" class="badge badge-success badge-pill tokenCheck"><i class="fa fa-check" aria-hidden="true"></i></span>
 										</li>
 										<li id="assetFromSRDX" class="list-group-item d-flex justify-content-between align-items-center" data-name="srdx">
-											<img src="assets/img/srdx.png" class="mr-3" alt="ETH">
+											<img src="assets/img/srdx.png" style="margin-left:-2px;" class="mr-3" alt="SRDX">
 											<div class="media-body">
 											  <h5 class="mt-0 mb-1">SRDX</h5>
 											  <span>Sardis-x Network</span>
 											</div>
 										  <span id="srdxTokencheck"  class="badge badge-success badge-pill tokenCheck"><i class="fa fa-check" aria-hidden="true"></i></span>
+										</li>
+										<li id="assetFromEURX" class="list-group-item d-flex justify-content-between align-items-center" data-name="eurx">
+											<img src="assets/img/eurx.png" height="32" width="32" style="margin-left:-6px;" class="mr-3" alt="EURX">
+											<div class="media-body">
+											  <h5 class="mt-0 mb-1">EURX</h5>
+											  <span>Sardis-x Network</span>
+											</div>
+										  <span id="eurxTokencheck"  style="display: none;" class="badge badge-success badge-pill tokenCheck"><i class="fa fa-check" aria-hidden="true"></i></span>
+										</li>
+										<li id="assetFromGOLDX" class="list-group-item d-flex justify-content-between align-items-center" data-name="goldx">
+											<img src="assets/img/goldx.png" height="32" width="32" style="margin-left:-6px;" class="mr-3" alt="GOLDX">
+											<div class="media-body">
+											  <h5 class="mt-0 mb-1">GOLDX</h5>
+											  <span>Sardis-x Network</span>
+											</div>
+										  <span id="goldxTokencheck"  style="display: none;" class="badge badge-success badge-pill tokenCheck"><i class="fa fa-check" aria-hidden="true"></i></span>
+										</li>
+										<li id="assetFromUSDX" class="list-group-item d-flex justify-content-between align-items-center" data-name="usdx">
+											<img src="assets/img/usdx.png" height="32" width="32" style="margin-left:-6px;" class="mr-3" alt="USDX">
+											<div class="media-body">
+											  <h5 class="mt-0 mb-1">USDX</h5>
+											  <span>Sardis-x Network</span>
+											</div>
+										  <span id="usdxTokencheck"  style="display: none;" class="badge badge-success badge-pill tokenCheck"><i class="fa fa-check" aria-hidden="true"></i></span>
 										</li>
 										<li id="assetFromDith" class="list-group-item d-flex justify-content-between align-items-center" data-name="eth">
 											<img src="assets/img/eth-icon.svg" class="mr-3" alt="ETH">
@@ -266,9 +290,54 @@
 						<div class="assets">
 							<label for="inputEmail4">Assets To</label>
 							<div class="dropdown dropdown-custom">
-								<button class="btn btn-secondary dropdown-toggle disabled" type="button" id="assetToUl" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<button class="btn btn-secondary dropdown-toggle" type="button" id="assetToUl" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<img class="icons" src="assets/img/srdx.png"> SRDS (Sardis Network)
-								</button>					 
+								</button>	
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<ul class="list-group" id="assetTo">
+										<li id="assetToSRDS" class="list-group-item d-flex justify-content-between align-items-center" data-name="srds">
+											<img src="assets/img/srdx.png" style="margin-left:-2px;" class="mr-3" alt="SRDS">
+											<div class="media-body">
+											  <h5 class="mt-0 mb-1">SRDS</h5>
+											  <span>Sardis Network</span>
+											</div>
+										  <span id="srdsTokenTocheck"  class="badge badge-success badge-pill tokenCheckTo"><i class="fa fa-check" aria-hidden="true"></i></span>
+										</li>
+										<li id="assetToSRDX" style="display: none !important;" class="list-group-item d-flex justify-content-between align-items-center" data-name="srdx">
+											<img src="assets/img/srdx.png" style="margin-left:-2px;" class="mr-3" alt="SRDX">
+											<div class="media-body">
+											  <h5 class="mt-0 mb-1">SRDX</h5>
+											  <span>Sardis Network</span>
+											</div>
+										  <span id="srdxTokenTocheck"  style="display: none;" class="badge badge-success badge-pill tokenCheckTo"><i class="fa fa-check" aria-hidden="true"></i></span>
+										</li>
+										<li id="assetToEURX" class="list-group-item d-flex justify-content-between align-items-center" data-name="eurx">
+											<img src="assets/img/eurx.png" height="32" width="32" style="margin-left:-6px;" class="mr-3" alt="EURX">
+											<div class="media-body">
+											  <h5 class="mt-0 mb-1">EURX</h5>
+											  <span>Sardis Network</span>
+											</div>
+										  <span id="eurxTokenTocheck"  style="display: none;" class="badge badge-success badge-pill tokenCheckTo"><i class="fa fa-check" aria-hidden="true"></i></span>
+										</li>
+										<li id="assetToGOLDX" class="list-group-item d-flex justify-content-between align-items-center" data-name="goldx">
+											<img src="assets/img/goldx.png" height="32" width="32" style="margin-left:-6px;" class="mr-3" alt="GOLDX">
+											<div class="media-body">
+											  <h5 class="mt-0 mb-1">GOLDX</h5>
+											  <span>Sardis Network</span>
+											</div>
+										  <span id="goldxTokenTocheck"  style="display: none;" class="badge badge-success badge-pill tokenCheckTo"><i class="fa fa-check" aria-hidden="true"></i></span>
+										</li>
+										<li id="assetToUSDX" class="list-group-item d-flex justify-content-between align-items-center" data-name="usdx">
+											<img src="assets/img/usdx.png" height="32" width="32" style="margin-left:-6px;" class="mr-3" alt="USDX">
+											<div class="media-body">
+											  <h5 class="mt-0 mb-1">USDX</h5>
+											  <span>Sardis Network</span>
+											</div>
+										  <span id="usdxTokenTocheck"  style="display: none;" class="badge badge-success badge-pill tokenCheckTo"><i class="fa fa-check" aria-hidden="true"></i></span>
+										</li>
+									</ul>
+								</div>
+
 							</div>
 						</div>
 

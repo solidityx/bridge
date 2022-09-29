@@ -11,6 +11,8 @@ var global = {
 }
 var ethPrice = 0.00;
 var bnbPrice = 0.00;
+var eurxPrice = 0.00;
+var goldxPrice = 0.00;
 if(window.ethereum){
     console.log(">>>>Window.ethereum >>>>",window.ethereum);
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -165,6 +167,10 @@ $('#assetFrom li').click(async function(){
         addNetowrk('SRDX');
         $('#receiveTokenImg').attr('src','assets/img/srdx.png');
         $('#reciveName').html('SRDS');
+        const fetchResponse =  await fetch(extPriceAPI);
+        const edata = await fetchResponse.json(); 
+        eurxPrice = edata['euro-coin'].usd;
+        goldxPrice = edata['pax-gold'].usd;
        // $('#feeText').html('(Fee 10$ of SRDS)');
         //$('#feeText').show();
         $('#reciveToken').html('');
@@ -203,7 +209,12 @@ $('#assetFrom li').click(async function(){
         $('#reciveName').html('SRDX');
         $('#reciveToken').html('');
         $('#assetToUl').attr('disabled',true);
-        //$('#feeText').html('(Fee 10$ of SRDS)');
+        const fetchResponse =  await fetch(extPriceAPI);
+        const edata = await fetchResponse.json(); 
+        eurxPrice = edata['euro-coin'].usd;
+        
+        //console.log(eurxPrice);
+        ///$('#feeText').html('(Fee 10$ of SRDS)');
        // $('#feeText').show();
     }
     if(name=="goldx"){
@@ -220,6 +231,9 @@ $('#assetFrom li').click(async function(){
         $('#reciveName').html('SRDX');
         $('#reciveToken').html('');
         $('#assetToUl').attr('disabled',true);
+        const fetchResponse =  await fetch(extPriceAPI);
+        const edata = await fetchResponse.json(); 
+        goldxPrice = edata['pax-gold'].usd;
         //$('#feeText').html('(Fee 10$ of SRDS)');
        // $('#feeText').show();
     }
@@ -269,7 +283,7 @@ $('#assetFrom li').click(async function(){
         $('#reciveName').html('SRDX');
         $('#feeText').hide();
         $('#reciveToken').html('');
-        const fetchResponse =  await fetch(ethPriceAPI);
+        const fetchResponse =  await fetch(extPriceAPI);
         const edata = await fetchResponse.json(); 
         ethPrice = edata.ethereum.usd;
         $('#assetToUl').attr('disabled','disabled');
@@ -319,7 +333,7 @@ $('#assetFrom li').click(async function(){
         $('#feeText').hide();
         addNetowrk('BNB');
         $('#reciveToken').html('');
-        const fetchResponse =  await fetch(bnbPriceAPI);
+        const fetchResponse =  await fetch(extPriceAPI);
         const edata = await fetchResponse.json(); 
         bnbPrice = edata.binancecoin.usd;
         $('#assetToUl').attr('disabled','disabled');
@@ -563,6 +577,9 @@ $('#assetTo li').click(async function(){
         $('#receiveTokenImg').attr('src','assets/img/eurx.png');
         $('#reciveName').html('EURX');
         $('#reciveToken').html('');
+        const fetchResponse =  await fetch(extPriceAPI);
+        const edata = await fetchResponse.json(); 
+        eurxPrice = edata['euro-coin'].usd;
     }
     if(name=="goldx"){
         $('#assetToUl').html('<img class="icons" src="assets/img/goldx.png"> GOLDX (Sardis-x Network)');
@@ -573,6 +590,9 @@ $('#assetTo li').click(async function(){
         $('#receiveTokenImg').attr('src','assets/img/goldx.png');
         $('#reciveName').html('GOLDX');
         $('#reciveToken').html('');
+        const fetchResponse =  await fetch(extPriceAPI);
+        const edata = await fetchResponse.json(); 
+        goldxPrice = edata['pax-gold'].usd;
     }
     if(name=="usdx"){
         $('#assetToUl').html('<img class="icons" src="assets/img/usdx.png"> USDX (Sardis-x Network)');
@@ -871,6 +891,29 @@ $('#tokenAmount').on('keyup keydown change', async function(e){
                 var amount = $(this).val();
                 amount = amount * bnbPrice;
                 $('#reciveToken').html(amount.toFixed(4));
+        }else if(network_From=='srdx' & network_To=='srdx' & asset_Name=='eurx' & asset_To=='srdx'){
+            
+                var amount = $(this).val();
+                amount = amount * eurxPrice;
+                $('#reciveToken').html(amount.toFixed(4));
+        }else if(network_From=='srdx' & network_To=='srdx' & asset_Name=='goldx' & asset_To=='srdx'){
+            
+                var amount = $(this).val();
+                amount = amount * goldxPrice;
+                $('#reciveToken').html(amount.toFixed(4));
+        }else if(network_From=='srdx' & network_To=='srdx' & asset_Name=='srdx' & asset_To=='eurx'){
+            
+                var amount = $(this).val();
+                amount = amount/eurxPrice;
+                console.log(eurxPrice);
+                $('#reciveToken').html(amount.toFixed(4));
+        }else if(network_From=='srdx' & network_To=='srdx' & asset_Name=='srdx' & asset_To=='goldx'){
+            
+                var amount = $(this).val();
+                amount = amount / goldxPrice;
+                $('#reciveToken').html(amount.toFixed(4));
+        
+        
         }else{
             $('#reciveToken').html($(this).val());
         }

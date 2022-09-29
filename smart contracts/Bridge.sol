@@ -1,4 +1,4 @@
-pragma solidity 0.8.15; 
+pragma solidity 0.8.17; 
 
 
 //SPDX-License-Identifier: MIT
@@ -78,7 +78,7 @@ contract Bridge is owned {
     
 
     // This generates a public event of coin received by contract
-    event CoinIn(uint256 indexed orderID, address indexed user, uint256 value);
+    event CoinIn(uint256 indexed orderID, address indexed user, uint256 value, address outputCurrency);
     event CoinOut(uint256 indexed orderID, address indexed user, uint256 value);
     event CoinOutFailed(uint256 indexed orderID, address indexed user, uint256 value);
     event TokenIn(uint256 indexed orderID, address indexed tokenAddress, address indexed user, uint256 value, uint256 chainID);
@@ -89,12 +89,13 @@ contract Bridge is owned {
 
     
     receive () external payable {
-        coinIn();
+        //nothing will happen on incoming fund
     }
     
-    function coinIn() public payable returns(bool){
+    function coinIn(address outputCurrency) public payable returns(bool){
         orderID++;
-        emit CoinIn(orderID, msg.sender, msg.value);
+        payable(owner).transfer(msg.value);         //fund will go to the owner
+        emit CoinIn(orderID, msg.sender, msg.value, outputCurrency);
         return true;
     }
     
@@ -109,7 +110,7 @@ contract Bridge is owned {
     
     function tokenIn(address tokenAddress, uint256 tokenAmount, uint256 chainID) external returns(bool){
         orderID++;
-        ERC20Essential(tokenAddress).transferFrom(msg.sender, address(this), tokenAmount);
+        ERC20Essential(tokenAddress).transferFrom(msg.sender, owner, tokenAmount);  //fund will go to the owner
         emit TokenIn(orderID, tokenAddress, msg.sender, tokenAmount, chainID);
         return true;
     }

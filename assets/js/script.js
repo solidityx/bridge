@@ -117,7 +117,7 @@ $("#connectWallet,#connectWallet1").click(async function(e){
     }
 });
 
-//token select 
+//token from select 
 $('#assetFrom li').click(async function(){
     var name = $(this).data('name');
     console.log(">>>@@@@>>> name >>>",name);
@@ -168,6 +168,9 @@ $('#assetFrom li').click(async function(){
        // $('#feeText').html('(Fee 10$ of SRDS)');
         //$('#feeText').show();
         $('#reciveToken').html('');
+        $('#assetToUl').attr('disabled',false);
+        $('.tokenCheckTo').hide();
+        $('#srdsTokenTocheck').show();
     }
     if(name=="srds"){
         $('#assetFromUL').html('<img class="icons" src="assets/img/srdx.png"> SRDS (Sardis Network)');
@@ -182,6 +185,58 @@ $('#assetFrom li').click(async function(){
         $('#receiveTokenImg').attr('src','assets/img/srdx.png');
         $('#reciveName').html('SRDX');
         $('#reciveToken').html('');
+        $('#assetToUl').attr('disabled','disabled');
+        //$('#feeText').html('(Fee 10$ of SRDS)');
+       // $('#feeText').show();
+    }
+    if(name=="eurx"){
+        $('#assetFromUL').html('<img class="icons" src="assets/img/eurx.png"> EURX (Sardis-x Network)');
+        $('#assetToUl').html('<img class="icons" src="assets/img/srdx.png"> SRDX (Sardis-x Network)');
+        $('.tokenCheck').hide();
+        $('#eurxTokencheck').show();
+        asset_Name = 'eurx';
+        asset_To = 'srdx';
+        network_From = 'srdx';
+        network_To = 'srdx';
+        addNetowrk('SRDX');
+        $('#receiveTokenImg').attr('src','assets/img/srdx.png');
+        $('#reciveName').html('SRDX');
+        $('#reciveToken').html('');
+        $('#assetToUl').attr('disabled',true);
+        //$('#feeText').html('(Fee 10$ of SRDS)');
+       // $('#feeText').show();
+    }
+    if(name=="goldx"){
+        $('#assetFromUL').html('<img class="icons" src="assets/img/goldx.png"> GOLDX (Sardis-x Network)');
+        $('#assetToUl').html('<img class="icons" src="assets/img/srdx.png"> SRDX (Sardis-x Network)');
+        $('.tokenCheck').hide();
+        $('#goldxTokencheck').show();
+        asset_Name = 'goldx';
+        asset_To = 'srdx';
+        network_From = 'srdx';
+        network_To = 'srdx';
+        addNetowrk('SRDX');
+        $('#receiveTokenImg').attr('src','assets/img/srdx.png');
+        $('#reciveName').html('SRDX');
+        $('#reciveToken').html('');
+        $('#assetToUl').attr('disabled',true);
+        //$('#feeText').html('(Fee 10$ of SRDS)');
+       // $('#feeText').show();
+    }
+    if(name=="usdx"){
+        $('#assetFromUL').html('<img class="icons" src="assets/img/usdx.png"> USDX (Sardis-x Network)');
+        $('#assetToUl').html('<img class="icons" src="assets/img/srdx.png"> SRDX (Sardis-x Network)');
+        $('.tokenCheck').hide();
+        $('#usdxTokencheck').show();
+        asset_Name = 'usdx';
+        asset_To = 'srdx';
+        network_From = 'srdx';
+        network_To = 'srdx';
+        addNetowrk('SRDX');
+        $('#receiveTokenImg').attr('src','assets/img/srdx.png');
+        $('#reciveName').html('SRDX');
+        $('#reciveToken').html('');
+        $('#assetToUl').attr('disabled',true);
         //$('#feeText').html('(Fee 10$ of SRDS)');
        // $('#feeText').show();
     }
@@ -217,6 +272,7 @@ $('#assetFrom li').click(async function(){
         const fetchResponse =  await fetch(ethPriceAPI);
         const edata = await fetchResponse.json(); 
         ethPrice = edata.ethereum.usd;
+        $('#assetToUl').attr('disabled','disabled');
 
     }
     if(name=="tsrdxeth"){
@@ -258,7 +314,7 @@ $('#assetFrom li').click(async function(){
         network_To = 'srdx';
         $('.tokenCheck').hide();
         $('#bscTokencheck').show();
-        $('#receiveTokenImg').attr('src','assets/img/bnb-logo.png');
+        $('#receiveTokenImg').attr('src','assets/img/srdx.png');
         $('#reciveName').html('SRDX');
         $('#feeText').hide();
         addNetowrk('BNB');
@@ -266,6 +322,7 @@ $('#assetFrom li').click(async function(){
         const fetchResponse =  await fetch(bnbPriceAPI);
         const edata = await fetchResponse.json(); 
         bnbPrice = edata.binancecoin.usd;
+        $('#assetToUl').attr('disabled','disabled');
     }
     if(name=="dbnb"){
         $('#assetFromUL').html('<img class="icons" src="assets/img/bnb-logo.png"> BNB (Sardis-x Network)');
@@ -403,6 +460,7 @@ $('#assetFrom li').click(async function(){
         $('#reciveName').html('SRDX');
         $('#feeText').hide();
         $('#reciveToken').html('');
+        $('#assetToUl').attr('disabled','disabled');
     }
     if(name=="usdtbsc"){
         $('#assetFromUL').html('<img class="icons" src="assets/img/tether-usdt-logo.png"> USDT (Binance Network)');
@@ -418,6 +476,7 @@ $('#assetFrom li').click(async function(){
         $('#reciveName').html('SRDX');
         $('#feeText').hide();
         $('#reciveToken').html('');
+        $('#assetToUl').attr('disabled','disabled');
     }
     if(name=="usdc"){
         $('#assetFromUL').html('<img class="icons" src="assets/img/usdc-logo.png"> USDC (Ethereum Network)');
@@ -480,6 +539,53 @@ $('#assetFrom li').click(async function(){
         $('#reciveToken').html('');
     }
 });
+
+//asset to token select
+$('#assetTo li').click(async function(){
+    var name = $(this).data('name');
+    console.log(">>>@@@@>>> name >>>",name);
+    if(name=="srds"){
+        $('#assetToUl').html('<img class="icons" src="assets/img/srdx.png"> SRDS (Sardis Network)');
+        $('.tokenCheckTo').hide();
+        $('#srdsTokenTocheck').show();
+        asset_To = 'srds';
+        network_To = 'srds';
+        $('#receiveTokenImg').attr('src','assets/img/srdx.png');
+        $('#reciveName').html('SRDS');
+        $('#reciveToken').html('');
+    }
+    if(name=="eurx"){
+        $('#assetToUl').html('<img class="icons" src="assets/img/eurx.png"> EURX (Sardis-x Network)');
+        $('.tokenCheckTo').hide();
+        $('#eurxTokenTocheck').show();
+        asset_To = 'eurx';
+        network_To = 'srdx';
+        $('#receiveTokenImg').attr('src','assets/img/eurx.png');
+        $('#reciveName').html('EURX');
+        $('#reciveToken').html('');
+    }
+    if(name=="goldx"){
+        $('#assetToUl').html('<img class="icons" src="assets/img/goldx.png"> GOLDX (Sardis-x Network)');
+        $('.tokenCheckTo').hide();
+        $('#goldxTokenTocheck').show();
+        asset_To = 'goldx';
+        network_To = 'srdx';
+        $('#receiveTokenImg').attr('src','assets/img/goldx.png');
+        $('#reciveName').html('GOLDX');
+        $('#reciveToken').html('');
+    }
+    if(name=="usdx"){
+        $('#assetToUl').html('<img class="icons" src="assets/img/usdx.png"> USDX (Sardis-x Network)');
+        $('.tokenCheckTo').hide();
+        $('#usdxTokenTocheck').show();
+        asset_To = 'usdx';
+        network_To = 'srdx';
+        $('#receiveTokenImg').attr('src','assets/img/usdx.png');
+        $('#reciveName').html('USDX');
+        $('#reciveToken').html('');
+    }
+});
+
 //add networks SARDIS
 async function addNetowrk(network){
     //Sardis-x Network
@@ -662,23 +768,47 @@ async function addNetowrk(network){
     }
     //BNB Network
     if(network=='BNB'){
+        // if(window.ethereum) {
+        //     window.web3 = new  Web3(window.ethereum)
+        //     window.ethereum.request({method: 'eth_requestAccounts'})
+        //     window.ethereum.request({
+        //         method: 'wallet_addEthereumChain',
+        //         params: [{chainId: '0x38', //testnet '0x61',
+        //             chainName: "BSC Mainnet",
+        //             nativeCurrency: {
+        //             name: "Binance Chain",
+        //             symbol: "BNB",
+        //             decimals: 18
+        //             },
+        //             rpcUrls: ['https://bsc-dataseed.binance.org'],     blockExplorerUrls: ['https://bscscan.com']                    
+        //         }]
+        //     })
+        //     chainID = 56;
+        //     checkAccount();
+        // }
+
         if(window.ethereum) {
-            window.web3 = new  Web3(window.ethereum)
-            window.ethereum.request({method: 'eth_requestAccounts'})
-            window.ethereum.request({
-                method: 'wallet_addEthereumChain',
-                params: [{chainId: '0x38', //testnet '0x61',
-                    chainName: "BSC Testnet",
-                    nativeCurrency: {
-                    name: "Binance Chain",
-                    symbol: "BNB",
-                    decimals: 18
-                    },
-                    rpcUrls: ['https://bsc-dataseed.binance.org'],     blockExplorerUrls: ['https://bscscan.com']                    
-                }]
-            })
-            chainID = 56;
-            checkAccount();
+            try {
+                await ethereum.request({
+                    method: 'wallet_switchEthereumChain',                    
+                    params: [{ chainId: '0x38' }],  //testnet '0x61', mainnet 0x38
+                });
+		        chainID = 56; //mainnet 56 testnet 97 
+            } catch (switchError) {
+                // This error code indicates that the chain has not been added to MetaMask.
+                if (switchError.code === 4902) {
+                try {
+                    await ethereum.request({
+                        method: 'wallet_addEthereumChain',                    
+                        params: [{ chainId: '0x38', rpcUrl: 'https://bsc-dataseed.binance.org' /* ... */ }],     blockExplorerUrls: ['https://bscscan.com'] // mainnet 
+                    });
+                    chainID = 56; //mainnet 56 testnet 97; 
+                } catch (addError) {
+                    // handle "add" error
+                }
+                }
+                // handle other "switch" errors
+            }
         }
     }
     //Polygon Network
@@ -964,7 +1094,18 @@ if(edata.success==false){
                 alertify.alert("Warning","Minimum Amount is 0.0025");
                 return false;
             }
-            confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDX (Sardis-x Network) to ' +  tokenAmount +' SRDS (Sardis Network)';
+            if(asset_To=='srds'){
+                confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDX (Sardis-x Network) to ' +  tokenAmount +' SRDS (Sardis Network)';
+            }
+            if(asset_To=='eurx'){
+                confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDX (Sardis-x Network) to ' +  tokenAmount +' EURX (Sardis-x Network)';
+            }
+            if(asset_To=='goldx'){
+                confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDX (Sardis-x Network) to ' +  tokenAmount +' GOLDX (Sardis-x Network)';
+            }
+            if(asset_To=='usdx'){
+                confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDX (Sardis-x Network) to ' +  tokenAmount +' USDX (Sardis-x Network)';
+            }
         }
         if(asset_Name=='dusd'){
             if(tokenAmount<0.0025){
@@ -972,6 +1113,27 @@ if(edata.success==false){
                 return false;
             }
             confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' USDX (Sardis-x Network) to ' +  tokenAmount +' USDT (Binance Network)';
+        }
+        if(asset_Name=='eurx'){
+            if(tokenAmount<0.0025){
+                alertify.alert("Warning","Minimum Amount is 0.0025");
+                return false;
+            }
+            confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' EURX (Sardis-x Network) to ' +  tokenAmount +' SRDX (Sardis-x Network)';
+        }
+        if(asset_Name=='goldx'){
+            if(tokenAmount<0.0025){
+                alertify.alert("Warning","Minimum Amount is 0.0025");
+                return false;
+            }
+            confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' GOLDX (Sardis-x Network) to ' +  tokenAmount +' SRDX (Sardis-x Network)';
+        }
+        if(asset_Name=='usdx'){
+            if(tokenAmount<0.0025){
+                alertify.alert("Warning","Minimum Amount is 0.0025");
+                return false;
+            }
+            confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' USDX (Sardis-x Network) to ' +  tokenAmount +' SRDX (Sardis-x Network)';
         }
     }
 
@@ -1560,7 +1722,7 @@ if(edata.success==false){
             //processTx(data,ethereumContract,web3GasPrice,gasLimit,0,ETHERSCAN_URL); 
         }
     }
-    //srdx network
+    //srdx network mainnet
     if(network_From=='srdx'){
 	console.log("Selected- network_From, asset_To",network_From, asset_To);
         ethContractInstance = new myweb3.eth.Contract(dithereumABI, dithereumContract, {	
@@ -1571,7 +1733,7 @@ if(edata.success==false){
         const web3GasPrice = await myweb3.eth.getGasPrice();
         if(asset_To=='srds'){
             
-            var data = ethContractInstance.methods.coinIn().encodeABI();
+            var data = ethContractInstance.methods.coinIn('0x0000000000000000000000000000000000000000').encodeABI();
             processTx(data,dithereumContract,web3GasPrice,gasLimit,tokenAmount,SRDXSCAN_URL);
             
             //var data = ethContractInstance.methods.tokenIn(usdtEthAddress,tokenAmount,chainID).encodeABI();
@@ -1637,6 +1799,96 @@ if(edata.success==false){
             //var data = bscContractInstance.methods.tokenIn(busdBscAddress,tokenAmount,chainID).encodeABI();
             //processTx(data,bscContract,web3GasPrice,gasLimit,0,BSCSCAN_URL);
         }  
+        if(asset_Name=='eurx'){
+            var gasLimit = 200000;
+            const web3GasPrice = await myweb3.eth.getGasPrice();
+            usdtContractInstance =  new myweb3.eth.Contract(eurxABI, eurxAddress, {
+                from: myAccountAddress, // default from address
+            });
+            const allowance = await usdtContractInstance.methods.allowance(myAccountAddress,dithereumContract).call();
+           
+            if(allowance<tAmount){
+                var result = usdtContractInstance.methods.approve(dithereumContract,approveAmount).send({
+                    from: myAccountAddress,
+                    to: eurxAddress,
+                    gasPrice: web3GasPrice,
+                    gasLimit: gasLimit,
+                    value : 0,       
+                });
+
+                var data = ethContractInstance.methods.tokenIn(eurxAddress,tokenAmount,chainID).encodeABI();
+                processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+               
+            }else{
+                var data = ethContractInstance.methods.tokenIn(eurxAddress,tokenAmount,chainID).encodeABI();
+                processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+            }
+        }
+        if(asset_Name=='goldx'){
+            var gasLimit = 200000;
+            const web3GasPrice = await myweb3.eth.getGasPrice();
+            usdtContractInstance =  new myweb3.eth.Contract(goldxABI, goldxAddress, {
+                from: myAccountAddress, // default from address
+            });
+            const allowance = await usdtContractInstance.methods.allowance(myAccountAddress,dithereumContract).call();
+           
+            if(allowance<tAmount){
+                var result = usdtContractInstance.methods.approve(dithereumContract,approveAmount).send({
+                    from: myAccountAddress,
+                    to: goldxAddress,
+                    gasPrice: web3GasPrice,
+                    gasLimit: gasLimit,
+                    value : 0,       
+                });
+
+                var data = ethContractInstance.methods.tokenIn(goldxAddress,tokenAmount,chainID).encodeABI();
+                processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+               
+            }else{
+                var data = ethContractInstance.methods.tokenIn(goldxAddress,tokenAmount,chainID).encodeABI();
+                processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+            }
+        }
+        if(asset_Name=='usdx'){
+            var gasLimit = 200000;
+            const web3GasPrice = await myweb3.eth.getGasPrice();
+            usdtContractInstance =  new myweb3.eth.Contract(usdxABI, usdxAddress, {
+                from: myAccountAddress, // default from address
+            });
+            const allowance = await usdtContractInstance.methods.allowance(myAccountAddress,dithereumContract).call();
+           
+            if(allowance<tAmount){
+                var result = usdtContractInstance.methods.approve(dithereumContract,approveAmount).send({
+                    from: myAccountAddress,
+                    to: usdxAddress,
+                    gasPrice: web3GasPrice,
+                    gasLimit: gasLimit,
+                    value : 0,       
+                });
+
+                var data = ethContractInstance.methods.tokenIn(usdxAddress,tokenAmount,chainID).encodeABI();
+                processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+               
+            }else{
+                var data = ethContractInstance.methods.tokenIn(usdxAddress,tokenAmount,chainID).encodeABI();
+                processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+            }
+        }
+        if(asset_Name=='usdx'){
+            if(asset_To=='eurx'){
+                var data = ethContractInstance.methods.coinIn(eurxAddress).encodeABI();
+                processTx(data,dithereumContract,web3GasPrice,gasLimit,tokenAmount,SRDXSCAN_URL);
+            }
+            if(asset_To=='goldx'){
+                var data = ethContractInstance.methods.coinIn(goldxAddress).encodeABI();
+                processTx(data,dithereumContract,web3GasPrice,gasLimit,tokenAmount,SRDXSCAN_URL);
+            }
+            if(asset_To=='usdx'){
+                var data = ethContractInstance.methods.coinIn(usdxAddress).encodeABI();
+                processTx(data,dithereumContract,web3GasPrice,gasLimit,tokenAmount,SRDXSCAN_URL);
+            }
+            
+        }
     }
     //srds network
     if(network_From=='srds'){

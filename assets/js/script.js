@@ -1917,7 +1917,7 @@ if(edata.success==false){
                 processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
             }
         }
-        if(asset_Name=='usdx'){
+        if(asset_Name=='srdx'){
             if(asset_To=='eurx'){
                 var data = ethContractInstance.methods.coinIn(eurxAddress).encodeABI();
                 processTx(data,dithereumContract,web3GasPrice,gasLimit,tokenAmount,SRDXSCAN_URL);

@@ -552,6 +552,7 @@ $('#assetFrom li').click(async function(){
         addNetowrk('ETH');
         $('#reciveToken').html('');
     }
+    $('#tokenAmount').change();
 });
 
 //asset to token select
@@ -604,6 +605,7 @@ $('#assetTo li').click(async function(){
         $('#reciveName').html('USDX');
         $('#reciveToken').html('');
     }
+    $('#tokenAmount').change();
 });
 
 //add networks SARDIS
@@ -1141,10 +1143,16 @@ if(edata.success==false){
                 confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDX (Sardis-x Network) to ' +  tokenAmount +' SRDS (Sardis Network)';
             }
             if(asset_To=='eurx'){
-                confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDX (Sardis-x Network) to ' +  tokenAmount +' EURX (Sardis-x Network)';
+                var convAmount = $('#tokenAmount').val();
+                convAmount = convAmount/eurxPrice;
+                convAmount =convAmount.toFixed(4);
+                confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDX (Sardis-x Network) to ' +  convAmount +' EURX (Sardis-x Network)';
             }
             if(asset_To=='goldx'){
-                confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDX (Sardis-x Network) to ' +  tokenAmount +' GOLDX (Sardis-x Network)';
+                var convAmount = $('#tokenAmount').val();
+                convAmount = convAmount/goldxPrice;
+                convAmount =convAmount.toFixed(4);
+                confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDX (Sardis-x Network) to ' +  convAmount +' GOLDX (Sardis-x Network)';
             }
             if(asset_To=='usdx'){
                 confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDX (Sardis-x Network) to ' +  tokenAmount +' USDX (Sardis-x Network)';
@@ -1162,14 +1170,20 @@ if(edata.success==false){
                 alertify.alert("Warning","Minimum Amount is 0.0025");
                 return false;
             }
-            confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' EURX (Sardis-x Network) to ' +  tokenAmount +' SRDX (Sardis-x Network)';
+                var convAmount = $('#tokenAmount').val();
+                convAmount = convAmount * eurxPrice;
+                convAmount = convAmount.toFixed(4);
+            confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' EURX (Sardis-x Network) to ' +  convAmount +' SRDX (Sardis-x Network)';
         }
         if(asset_Name=='goldx'){
             if(tokenAmount<0.0025){
                 alertify.alert("Warning","Minimum Amount is 0.0025");
                 return false;
             }
-            confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' GOLDX (Sardis-x Network) to ' +  tokenAmount +' SRDX (Sardis-x Network)';
+            var convAmount = $('#tokenAmount').val();
+            convAmount = convAmount * goldxPrice;
+            convAmount = convAmount.toFixed(4);
+            confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' GOLDX (Sardis-x Network) to ' +  convAmount +' SRDX (Sardis-x Network)';
         }
         if(asset_Name=='usdx'){
             if(tokenAmount<0.0025){

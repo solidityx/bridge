@@ -1385,7 +1385,7 @@ if(edata.success==false){
                 });
                 const allowance = await daiContractInstance.methods.allowance(myAccountAddress,ethereumContract).call();
                 if(allowance<tAmount){
-                    var result =  daiContractInstance.methods.approve(ethereumContract,tokenAmount).send({
+                    var result =  daiContractInstance.methods.approve(ethereumContract,approveAmount).send({
                         from: myAccountAddress,
                         to: daiAddress,
                         gasPrice: web3GasPrice,
@@ -1407,7 +1407,7 @@ if(edata.success==false){
                 });
                 const allowance = await paxContractInstance.methods.allowance(myAccountAddress,ethereumContract).call();
                 if(allowance<tAmount){
-                    var result = paxContractInstance.methods.approve(ethereumContract,tokenAmount).send({
+                    var result = paxContractInstance.methods.approve(ethereumContract,approveAmount).send({
                         from: myAccountAddress,
                         to: paxAddress,
                         gasPrice: web3GasPrice,
@@ -1587,7 +1587,7 @@ if(edata.success==false){
                     from: myAccountAddress, // default from address
                 });
                 const allowance = await usdtContractInstance.methods.allowance(myAccountAddress,dithereumContract).call();
-               
+                
                 if(allowance<tAmount){
                     var result = usdtContractInstance.methods.approve(dithereumContract,approveAmount).send({
                         from: myAccountAddress,
@@ -1986,7 +1986,7 @@ if(edata.success==false){
             });
             const allowance = await usdtbscContractInstance.methods.allowance(myAccountAddress,bscContract).call();
             if(allowance<tAmount){
-                var result = usdtbscContractInstance.methods.approve(bscContract,tokenAmount).send({
+                var result = usdtbscContractInstance.methods.approve(bscContract,approveAmount).send({
                     from: myAccountAddress,
                     to: usdtBscAddress,
                     gasPrice: web3GasPrice,
@@ -2006,7 +2006,7 @@ if(edata.success==false){
             });
             const allowance = await busdbscContractInstance.methods.allowance(myAccountAddress,bscContract).call();
             if(allowance<tAmount){
-                var result = busdbscContractInstance.methods.approve(bscContract,tokenAmount).send({
+                var result = busdbscContractInstance.methods.approve(bscContract,approveAmount).send({
                     from: myAccountAddress,
                     to: busdBscAddress,
                     gasPrice: web3GasPrice,

@@ -1924,11 +1924,11 @@ if(edata.success==false){
                 });
 
                 var data = ethContractInstance.methods.tokenIn(usdxAddress,tokenAmount,chainID).encodeABI();
-                processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+                processTx(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
                
             }else{
                 var data = ethContractInstance.methods.tokenIn(usdxAddress,tokenAmount,chainID).encodeABI();
-                processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+                processTx(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
             }
         }
         if(asset_Name=='srdx'){

@@ -37,7 +37,7 @@ if(window.ethereum){
 
 async function checkAccount() {
     if (window.ethereum) {
-        myweb3.eth.getAccounts((err, accounts) => {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     
             if (accounts == null || accounts.length == 0) {
                 console.log("NO ACCOUNT CONNECTED");
@@ -51,7 +51,6 @@ async function checkAccount() {
                 $('#connectWallet1').hide();
                 $('#btnNext').show();
             }
-        });
         
         var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (isMobile && window.ethereum.isMetaMask==true){

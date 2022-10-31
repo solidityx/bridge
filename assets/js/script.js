@@ -14,28 +14,25 @@ var bnbPrice = 0.00;
 var eurxPrice = 0.00;
 var goldxPrice = 0.00;
 if(window.ethereum){
-    console.log(">>>>Window.ethereum >>>>",window.ethereum);
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      if (isMobile && window.ethereum.isMetaMask==true){
-            var myweb3 = new Web3("https://rinkeby.infura.io/v3/81072921998748a4b1199468ab287baf");
-     }else{
-         const oldProvider = web3.currentProvider; // keep a reference to metamask provider
-         var myweb3 = new Web3(oldProvider);
+    if (isMobile && window.ethereum.isMetaMask==true){
+      var myweb3 = new Web3( window.ethereum);
+   }else{
+      const oldProvider =  window.ethereum;  // keep a reference to metamask provider
+      var myweb3 = new Web3(oldProvider);
+   }
+   
+   ethereum.on('accountsChanged', handleAccountsChanged);
+   function handleAccountsChanged (accounts) {
+     if (accounts.length === 0) {    
+       // MetaMask is locked or the user has not connected any accounts
+       console.log('Please connect to MetaMask.')
+     } else if (accounts[0] !== myAccountAddress) {
+         window.location.href = "";
      }
-     
-     ethereum.on('accountsChanged', handleAccountsChanged);
-     function handleAccountsChanged (accounts) {
-       if (accounts.length === 0) {    
-         // MetaMask is locked or the user has not connected any accounts
-         console.log('Please connect to MetaMask.')
-       } else if (accounts[0] !== myAccountAddress) {
-           window.location.href = "";
-       }
-    }
+  }
 }else{
-        var myweb3 = new Web3( Web3.givenProvider || "https://rinkeby.infura.io/v3/81072921998748a4b1199468ab287baf");
-        const oldProvider = myweb3.currentProvider; // keep a reference to metamask provider
-        var myweb3 = new Web3(oldProvider);
+    var myweb3 = new Web3( window.ethereum);
 }
 
 async function checkAccount() {
@@ -1894,6 +1891,7 @@ if(edata.success==false){
             //processTx(data,bscContract,web3GasPrice,gasLimit,0,BSCSCAN_URL);
         }  
         if(asset_Name=='eurx'){
+         
             var gasLimit = 200000;
             const web3GasPrice = await myweb3.eth.getGasPrice();
             usdtContractInstance =  new myweb3.eth.Contract(eurxABI, eurxAddress, {
@@ -1909,13 +1907,24 @@ if(edata.success==false){
                     gasLimit: gasLimit,
                     value : 0,       
                 });
+                var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                if (isMobile && window.ethereum.isMetaMask==true) {
+                    var data = ethContractInstance.methods.tokenIn(eurxAddress,tokenAmount,chainID).encodeABI();
+                    processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+                }else{
+                    var data = ethContractInstance.methods.tokenIn(eurxAddress,tokenAmount,chainID).encodeABI();
+                    processTx(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);     
+                }
 
-                var data = ethContractInstance.methods.tokenIn(eurxAddress,tokenAmount,chainID).encodeABI();
-                processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
-               
             }else{
-                var data = ethContractInstance.methods.tokenIn(eurxAddress,tokenAmount,chainID).encodeABI();
-                processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+                var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                if (isMobile && window.ethereum.isMetaMask==true) {
+                    var data = ethContractInstance.methods.tokenIn(eurxAddress,tokenAmount,chainID).encodeABI();
+                    processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+                }else{
+                    var data = ethContractInstance.methods.tokenIn(eurxAddress,tokenAmount,chainID).encodeABI();
+                    processTx(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);     
+                }
             }
         }
         if(asset_Name=='goldx'){
@@ -1935,12 +1944,24 @@ if(edata.success==false){
                     value : 0,       
                 });
 
-                var data = ethContractInstance.methods.tokenIn(goldxAddress,tokenAmount,chainID).encodeABI();
-                processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+                var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                if (isMobile && window.ethereum.isMetaMask==true) {
+                    var data = ethContractInstance.methods.tokenIn(goldxAddress,tokenAmount,chainID).encodeABI();
+                    processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+                }else{
+                    var data = ethContractInstance.methods.tokenIn(goldxAddress,tokenAmount,chainID).encodeABI();
+                    processTx(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);     
+                }
                
             }else{
-                var data = ethContractInstance.methods.tokenIn(goldxAddress,tokenAmount,chainID).encodeABI();
-                processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+                var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                if (isMobile && window.ethereum.isMetaMask==true) {
+                    var data = ethContractInstance.methods.tokenIn(goldxAddress,tokenAmount,chainID).encodeABI();
+                    processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+                }else{
+                    var data = ethContractInstance.methods.tokenIn(goldxAddress,tokenAmount,chainID).encodeABI();
+                    processTx(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);     
+                }
             }
         }
         if(asset_Name=='usdx'){
@@ -1959,13 +1980,24 @@ if(edata.success==false){
                     gasLimit: gasLimit,
                     value : 0,       
                 });
-
-                var data = ethContractInstance.methods.tokenIn(usdxAddress,tokenAmount,chainID).encodeABI();
-                processTx(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+                var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                if (isMobile && window.ethereum.isMetaMask==true) {
+                    var data = ethContractInstance.methods.tokenIn(usdxAddress,tokenAmount,chainID).encodeABI();
+                    processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+                }else{
+                    var data = ethContractInstance.methods.tokenIn(usdxAddress,tokenAmount,chainID).encodeABI();
+                    processTx(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);     
+                }
                
             }else{
-                var data = ethContractInstance.methods.tokenIn(usdxAddress,tokenAmount,chainID).encodeABI();
-                processTx(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+                var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                if (isMobile && window.ethereum.isMetaMask==true) {
+                    var data = ethContractInstance.methods.tokenIn(usdxAddress,tokenAmount,chainID).encodeABI();
+                    processTx2(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);
+                }else{
+                    var data = ethContractInstance.methods.tokenIn(usdxAddress,tokenAmount,chainID).encodeABI();
+                    processTx(data,dithereumContract,web3GasPrice,gasLimit,0,SRDXSCAN_URL);     
+                }
             }
         }
         if(asset_Name=='srdx'){

@@ -922,70 +922,42 @@ $('#tokenAmount').on('keyup keydown change', async function(e){
 
 //function for tx alert etc
 async function processTx(data,contractAddress,web3GasPrice,gasLimit,value,TX_URL){
-    processTx2(data,contractAddress,web3GasPrice,gasLimit,value,TX_URL);
-    // var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-    // if (isMobile && window.ethereum.isMetaMask==true) {
-    //     web3GasPrice = web3GasPrice.toString();
-    //     gasLimit = gasLimit.toString();
-    //     web3GasPrice =  myweb3.utils.toHex(web3GasPrice);
-    //     gasLimit =  myweb3.utils.toHex(gasLimit);
-    //     value = value.toString();
-    //     value = myweb3.utils.toHex(value);
-    //     var nonce = await myweb3.eth.getTransactionCount(myAccountAddress, 'pending');
-    //     nonce= myweb3.utils.toHex(nonce);
-    //     console.log(nonce);
-    //     const transactionParameters = {
-    //         nonce: nonce, // ignored by MetaMask
-    //         gasPrice: web3GasPrice, // customizable by user during MetaMask confirmation.
-    //         gas: gasLimit, // customizable by user during MetaMask confirmation.
-    //         to: contractAddress, // Required except during contract publications.
-    //         from: myAccountAddress, // must match user's active address.
-    //         value: value, // Only required to send ether to the recipient from the initiating external account.
-    //         data: data, // Optional, but used for defining smart contract creation and interaction.
-    //         //chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
-    //     };
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     
-    //     // txHash is a hex string
-    //     // As with any RPC call, it may throw an error
-    //     const txHash = await ethereum.request({
-    //         method: 'eth_sendTransaction',
-    //         params: [transactionParameters],
-    //     });
-    //     if(txHash){
-    //         alertify.alert('Transaction Success', 'Your transaction is confirmed successfully.<br>The Bridge will send you the coins soon.<br>'+
-    //         'You can check transaction details into History page.<br>'+
-    //         'If you have any questions, please reach out to '+NETWORK_NAME+' Bridge Support', function(){});  
-    //     }
-    // }else{  
-    //     value = logEtoLongNumber(value);
-	//     console.log("line666::::",window.ethereum);
-	//     console.log("> processTx - contractAddress  >",contractAddress);
-    //     myweb3.eth.sendTransaction({
-    //         from: myAccountAddress,
-    //         to: contractAddress,
-    //         //gasPrice: localStorage.getItem('ethGasPrice'),
-    //         gasPrice : web3GasPrice,
-    //         gasLimit: gasLimit,
-    //         data: data, // deploying a contracrt
-    //         value : value,
-    //         }).on('transactionHash',function(hash){
-    //             alertify.alert("Transaction Recorded","Please wait upto 5 min for your coins to reflect.<br>" +
-    //                                                 "Please check the status of transaction <a href='"+TX_URL+hash+"' target='_blank'> Here</a>", function(){});
-    //         }).on('receipt', function(receipt){
-    //             alertify.alert('Transaction Success', 'Your transaction is confirmed successfully.<br>'+
-    //                                                    'Sardis Bridge will send you the coins soon.<br>'+
-    //                                                    'You can check transaction details into History page.<br>'+
-    //                                                    'If you have any questions, please reach out to Sardis Bridge Support', function(){});  
-    //         }).on('error',function(error){
-    //             var ErrorMsg=error.message;
-    //             alertify.alert('Error', ""+ErrorMsg, function(){});
-    //         });
-    // }
-}
-function processTx2(data,contractAddress,web3GasPrice,gasLimit,value,TX_URL){
-	console.log("line666::::",window.ethereum);
-	console.log("> processTx - contractAddress  >",contractAddress);
+    if (isMobile && window.ethereum.isMetaMask==true) {
+            web3GasPrice = web3GasPrice.toString();
+            gasLimit = gasLimit.toString();
+            web3GasPrice =  myweb3.utils.toHex(web3GasPrice);
+            gasLimit =  myweb3.utils.toHex(gasLimit);
+            value = value.toString();
+            value = myweb3.utils.toHex(value);
+            var nonce = await myweb3.eth.getTransactionCount(myAccountAddress, 'pending');
+            nonce= myweb3.utils.toHex(nonce);
+            console.log(nonce);
+            const transactionParameters = {
+                nonce: nonce, // ignored by MetaMask
+                gasPrice: web3GasPrice, // customizable by user during MetaMask confirmation.
+                gas: gasLimit, // customizable by user during MetaMask confirmation.
+                to: contractAddress, // Required except during contract publications.
+                from: myAccountAddress, // must match user's active address.
+                value: value, // Only required to send ether to the recipient from the initiating external account.
+                data: data, // Optional, but used for defining smart contract creation and interaction.
+                //chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+            };
+        
+            // txHash is a hex string
+            // As with any RPC call, it may throw an error
+            const txHash = await ethereum.request({
+                method: 'eth_sendTransaction',
+                params: [transactionParameters],
+            });
+            if(txHash){
+                alertify.alert('Transaction Success', 'Your transaction is confirmed successfully.<br>The Bridge will send you the coins soon.<br>'+
+                'You can check transaction details into History page.<br>'+
+                'If you have any questions, please reach out to '+NETWORK_NAME+' Bridge Support', function(){});  
+            }
+    }else{   
+        value = logEtoLongNumber(value);
         myweb3.eth.sendTransaction({
             from: myAccountAddress,
             to: contractAddress,
@@ -998,12 +970,36 @@ function processTx2(data,contractAddress,web3GasPrice,gasLimit,value,TX_URL){
                 alertify.alert("Transaction Recorded","Please wait upto 5 min for your coins to reflect.<br>" +
                                                     "Please check the status of transaction <a href='"+TX_URL+hash+"' target='_blank'> Here</a>", function(){});
             }).on('receipt', function(receipt){
-                alertify.alert('Transaction Success', 'Your transaction is confirmed successfully. Sardis bridge will send you the coins after manual review. It takes upto 24 hours.<br>'+
-                                                       'If you have any questions, please contact us.', function(){});  
+                alertify.alert('Transaction Success', 'Your transaction is confirmed successfully.<br>The Bridge will send you the coins soon.<br>'+
+                                                       'You can check transaction details into History page.<br>'+
+                                                       'If you have any questions, please reach out to '+NETWORK_NAME+' Bridge Support', function(){});  
             }).on('error',function(error){
                 var ErrorMsg=error.message;
                 alertify.alert('Error', ""+ErrorMsg, function(){});
             });
+    }
+}
+async function processTx2(data,contractAddress,web3GasPrice,gasLimit,value,TX_URL){
+    value = logEtoLongNumber(value);
+    //value = myweb3.utils.toHex(value);
+    myweb3.eth.sendTransaction({
+        from: myAccountAddress,
+        to: contractAddress,
+        gasPrice : web3GasPrice,
+        gasLimit: gasLimit,
+        data: data, // deploying a contracrt
+        value : value,
+        }).on('transactionHash',function(hash){
+            alertify.alert("Transaction Recorded","Please wait upto 5 min for your coins to reflect.<br>" +
+                                                "Please check the status of transaction <a href='"+TX_URL+hash+"' target='_blank'> Here</a>", function(){});
+        }).on('receipt', function(receipt){
+            alertify.alert('Transaction Success', 'Your transaction is confirmed successfully.<br>The Bridge will send you the coins soon.<br>'+
+                                                    'You can check transaction details into History page.<br>'+
+                                                    'If you have any questions, please reach out to '+NETWORK_NAME+' Bridge Support', function(){});  
+        }).on('error',function(error){
+            var ErrorMsg=error.message;
+            alertify.alert('Error', ""+ErrorMsg, function(){});
+        });
 }
 //coinIn code 
 

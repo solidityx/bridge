@@ -1220,7 +1220,10 @@ if(edata.success==false){
                 alertify.alert("Warning","Minimum Amount is 0.0025");
                 return false;
             }
-            confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDS (Sardis Network) to ' +  tokenAmount +' SRDX (Sardis-x Network)';
+            var convAmount = $('#tokenAmount').val();
+            convAmount = convAmount*srdsPrice;
+            convAmount =convAmount.toFixed(4);
+            confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDS (Sardis Network) to ' +  convAmount +' SRDX (Sardis-x Network)';
         }
         
     }
@@ -1231,7 +1234,10 @@ if(edata.success==false){
                 return false;
             }
             if(asset_To=='srds'){
-                confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDX (Sardis-x Network) to ' +  tokenAmount +' SRDS (Sardis Network)';
+                var convAmount = $('#tokenAmount').val();
+                convAmount = convAmount/srdsPrice;
+                convAmount =convAmount.toFixed(4);
+                confirmMessage = 'Are you sure you want to swap ? <br>' +  tokenAmount +' SRDX (Sardis-x Network) to ' +  convAmount +' SRDS (Sardis Network)';
             }
             if(asset_To=='eurx'){
                 var convAmount = $('#tokenAmount').val();

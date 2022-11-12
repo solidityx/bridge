@@ -100,7 +100,7 @@ function getCookie(cname) {
 $('document').ready(function(){
     addNetowrk('SRDX');
     checkCookie();
-    setInterval(checkCookie,60000);
+    setInterval(checkCookie,600000);
 });
 //get pricing data for srdx and srds
 async function getPricingData(){
@@ -116,8 +116,9 @@ async function getPricingData(){
     priceArr = JSON.stringify(priceArr);
     setCookie("cookie", priceArr, 10);
 }
-async function checkCookie(){
+function checkCookie(){
     var chkCookie = getCookie("cookie");
+    console.log(chkCookie)
     if (chkCookie == "") {
         getPricingData();
     }else{

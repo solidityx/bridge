@@ -73,21 +73,62 @@ async function checkAccount() {
     }
 }
 setTimeout(checkAccount, 500);
+
+function setCookie(cname, cvalue, exmins) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exmins*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+  
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 $('document').ready(function(){
     addNetowrk('SRDX');
-    getPricingData();
-    setInterval(getPricingData,600000)
+    checkCookie();
+    setInterval(checkCookie,60000);
 });
 //get pricing data for srdx and srds
 async function getPricingData(){
     const fetchResponse =  await fetch(pricingAPI);
     const edata = await fetchResponse.json(); 
-    srdxPrice = edata.data.SRDXPRICE;
-    srdsPrice = edata.data.SRDSPRICE;
-    eurxPrice = edata.data.EURPRICE;
-    goldxPrice = edata.data.GOLDPRICE;
-    ethPrice = edata.data.ETHPRICE;
-    bnbPrice = edata.data.BNBPRICE;
+    srdxPrice = edata.data[0].SRDXPRICE;
+    srdsPrice = edata.data[0].SRDSPRICE;
+    eurxPrice = edata.data[0].EURPRICE;
+    goldxPrice = edata.data[0].GOLDPRICE;
+    ethPrice = edata.data[0].ETHPRICE;
+    bnbPrice = edata.data[0].BNBPRICE;
+    var priceArr = { "srdx": srdxPrice, "srds": srdsPrice, "eurx": eurxPrice, "goldx": goldxPrice, "eth": ethPrice, "bnb": bnbPrice }; 
+    priceArr = JSON.stringify(priceArr);
+    setCookie("cookie", priceArr, 10);
+}
+async function checkCookie(){
+    var chkCookie = getCookie("cookie");
+    if (chkCookie == "") {
+        getPricingData();
+    }else{
+        chkCookie = JSON.parse(chkCookie);
+        srdxPrice = chkCookie.srdx;
+        srdsPrice = chkCookie.srds;
+        eurxPrice = chkCookie.eurx;
+        goldxPrice = chkCookie.goldx;
+        ethPrice = chkCookie.eth;
+        bnbPrice = chkCookie.bnb;
+    }
 }
 //get short user address
 function getUserAddress(userAddress){

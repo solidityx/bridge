@@ -1028,8 +1028,8 @@ async function processTx(data,contractAddress,web3GasPrice,gasLimit,value,TX_URL
             data: data, // deploying a contracrt
             value : value,
             }).on('transactionHash',function(hash){
-                alertify.alert("Transaction Recorded","Please wait upto 5 min for your coins to reflect.<br>" +
-                                                    "Please check the status of transaction <a href='"+TX_URL+hash+"' target='_blank'> Here</a>", function(){});
+                alertify.alert("Transaction Recorded","Authentication and safety procedures will take time before sending your funds. Please prepare to wait for some 5 minutes to see the transaction in your wallet.<br>" +
+                                                    "<a style='text-decoration:underline;' href='"+TX_URL+hash+"' target='_blank'>Please check the status of transaction Here</a>", function(){});
             }).on('receipt', function(receipt){
                 alertify.alert('Transaction Success', 'Your transaction is confirmed successfully.<br>The Bridge will send you the coins soon.<br>'+
                                                        'You can check transaction details into History page.<br>'+
@@ -1051,8 +1051,8 @@ async function processTx2(data,contractAddress,web3GasPrice,gasLimit,value,TX_UR
         data: data, // deploying a contracrt
         value : value,
         }).on('transactionHash',function(hash){
-            alertify.alert("Transaction Recorded","Please wait upto 5 min for your coins to reflect.<br>" +
-                                                "Please check the status of transaction <a href='"+TX_URL+hash+"' target='_blank'> Here</a>", function(){});
+            alertify.alert("Transaction Recorded","Authentication and safety procedures will take time before sending your funds. Please prepare to wait for some 5 minutes to see the transaction in your wallet.<br>" +
+                                                "<a style='text-decoration:underline;' href='"+TX_URL+hash+"' target='_blank'>Please check the status of transaction Here</a>", function(){});
         }).on('receipt', function(receipt){
             alertify.alert('Transaction Success', 'Your transaction is confirmed successfully.<br>The Bridge will send you the coins soon.<br>'+
                                                     'You can check transaction details into History page.<br>'+
